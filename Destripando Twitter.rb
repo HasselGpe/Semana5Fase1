@@ -38,8 +38,8 @@
 # para encontrar elementos específicos dentro del HTML. Modifica la parte del selector para
 #  buscar diferentes elementos en el archivo.
 
-# irb> profile_name = doc.search(".ProfileHeaderCard-name > a")
-# irb> profile_name.first.inner_text
+# irb> extract_username = doc.search(".ProfileHeaderCard-name > a")
+# irb> extract_username.first.inner_text
 # Para este momento ya deberías entender como se usan las clases y los id's dentro del HTML 
 # y CSS.
 
@@ -54,7 +54,7 @@
 # $ ruby twitter_scrapper.rb
 # Username: Chicharito Hernandez
 # ----------------------------------------------------------------------------
-# Stats: Tweets: 734, Siguiendo: 298, Seguidores: 4,95M, Favoritos: 70
+# extract_tweets: Tweets: 734, Siguiendo: 298, Seguidores: 4,95M, Favoritos: 70
 # ----------------------------------------------------------------------------
 # Tweets: 
 #   30 de mar.: Somos futbolistas unidos por una gran causa. Entendamos juntos al autismo 
@@ -80,7 +80,7 @@
 #   def extract_tweets
 #   end
 
-#   def extract_stats
+#   def extract_extract_tweets
 #   end
 
 # end
@@ -94,7 +94,7 @@
 # $ ruby twitter_scrapper.rb https://twitter.com/El_Brody
 # Username: Jorge Campos
 # ----------------------------------------------------------------------------
-# Stats: Tweets: 7, Siguiendo: 1,128, Seguidores: 21.7K
+# extract_tweets: Tweets: 7, Siguiendo: 1,128, Seguidores: 21.7K
 # ----------------------------------------------------------------------------
 
 # ...
@@ -108,30 +108,32 @@
 require 'pp'  
 require 'nokogiri'
 require 'open-uri'
+
 class Twitter
+
   def initialize(url)
     @doc = Nokogiri::HTML(open(url))
   end
-  def profile_name
-    profile_name = @doc.search(".ProfileHeaderCard-name > a")
-    profile_name.first.inner_text
-    "User Name: #{profile_name.first.inner_text}"
+
+  def extract_username
+    extract_username = @doc.search(".ProfileHeaderCard-name > a")
+    extract_username.first.inner_text
+    "User Name: #{extract_username.first.inner_text}"
   end
-  def stats
-    # Ingresando al numero de tweets
+
+  def extract_tweets
     tweets = @doc.search(".ProfileNav-stat.ProfileNav-stat--link.u-borderUserColor.u-textCenter.js-tooltip.js-nav > span.ProfileNav-value")
     tweets = tweets.inner_text
-    # Ingresando a valores de stats
     valores = @doc.search(".ProfileNav-stat.ProfileNav-stat--link.u-borderUserColor.u-textCenter.js-tooltip.js-openSignupDialog.js-nonNavigable.u-textUserColor > span.ProfileNav-value")
     following = valores.first.inner_text
-    # Ingresando al indice de followers
     followers = valores[1].inner_text
-    # Ingresando al indice de likes
     likes = valores[2].inner_text
-    "Stats: Tweets: #{tweets} Siguiendo: #{following} Seguidores: #{followers} Likes: #{likes}"
+    "extract_tweets: Tweets: #{tweets} Siguiendo: #{following} Seguidores: #{followers} Likes: #{likes}"
   end
-  def ultimos_tweets
+
+  def extract_stats
     tweets = @doc.search(".js-tweet-text-container > p.TweetTextSize.TweetTextSize--16px.js-tweet-text.tweet-text")
+
     for i in 0..7
       puts "----------------------------------------------------------------------------"
       p tweets[i].inner_text
@@ -141,19 +143,20 @@ class Twitter
       
     end
   end
-  def twitter_board
+
+  def Board
     puts "----------------------------------------------------------------------------"
-    puts profile_name
+    puts extract_username
     puts "----------------------------------------------------------------------------"
-    puts stats
+    puts extract_tweets
     puts "----------------------------------------------------------------------------"
     puts "Tweets:"
-    ultimos_tweets
+    extract_stats
   end
+
 end
 profile = Twitter.new('https://twitter.com/HasselOrtegaP')
-profile.twitter_board
-
+profile.Board
 
 
 
@@ -212,12 +215,12 @@ profile.twitter_board
 #     page = Net::HTTP.get(@uri)
 #     @doc = Nokogiri::HTML(page)
 #     extract_username
-#     extract_stats
+#     extract_extract_tweets
 #     extract_tweets
 #   end
 #   def extract_username
-#     profile_name = @doc.search(".ProfileHeaderCard-name > a")
-#     puts "Username: #{profile_name.first.inner_text}"
+#     extract_username = @doc.search(".ProfileHeaderCard-name > a")
+#     puts "Username: #{extract_username.first.inner_text}"
 #   end
 #   def extract_tweets
 #     tweets = @doc.search(".tweet")
@@ -233,13 +236,13 @@ profile.twitter_board
 #     end
 #     puts "-" * 80
 #   end
-#   def extract_stats
+#   def extract_extract_tweets
 #     data = @doc.search(".ProfileNav-value")
-#     stats = []
+#     extract_tweets = []
 #     for i in 0..data.length - 1
-#       stats << data[i].inner_text
+#       extract_tweets << data[i].inner_text
 #     end 
-#     puts "Stats: Tweets: #{stats[0]}, Siguiendo: #{stats[1]}, Seguirdores: #{stats[2]}, Favoritos: #{stats[3]} \n"
+#     puts "extract_tweets: Tweets: #{extract_tweets[0]}, Siguiendo: #{extract_tweets[1]}, Seguirdores: #{extract_tweets[2]}, Favoritos: #{extract_tweets[3]} \n"
 #   end
 # end
 # link = ARGV
