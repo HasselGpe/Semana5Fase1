@@ -134,8 +134,8 @@ class Twitter
   def extract_stats
     tweets = @doc.search(".js-tweet-text-container > p.TweetTextSize.TweetTextSize--16px.js-tweet-text.tweet-text")
 
-    for i in 0..7
-      puts "----------------------------------------------------------------------------"
+    for i in 0..10
+      puts "--------------------------------------------------------------------------------"
       p tweets[i].inner_text
       retweets = @doc.search(".stream-container > div.stream > ol.stream-items.js-navigable-stream > li:nth-child(#{i + 1}).js-stream-item.stream-item.stream-item.expanding-stream-item > div.tweet.js-stream-tweet.js-actionable-tweet.js-profile-popup-actionable.original-tweet.js-original-tweet > div.content > div.stream-item-footer > div.ProfileTweet-actionList.js-actions > div.ProfileTweet-action.ProfileTweet-action--retweet.js-toggleState.js-toggleRt > button.ProfileTweet-actionButton.js-actionButton.js-actionRetweet > div.IconTextContainer > span.ProfileTweet-actionCount > span.ProfileTweet-actionCountForPresentation").inner_text  
       favorites = @doc.search(".stream-container > div.stream > ol.stream-items.js-navigable-stream > li:nth-child(#{i + 1}).js-stream-item.stream-item.stream-item.expanding-stream-item > div.tweet.js-stream-tweet.js-actionable-tweet.js-profile-popup-actionable.original-tweet.js-original-tweet > div.content > div.stream-item-footer > div.ProfileTweet-actionList.js-actions > div.ProfileTweet-action.ProfileTweet-action--favorite.js-toggleState > button.ProfileTweet-actionButton.js-actionButton.js-actionFavorite > div.IconTextContainer > span.ProfileTweet-actionCount > span.ProfileTweet-actionCountForPresentation").inner_text
@@ -145,11 +145,11 @@ class Twitter
   end
 
   def Board
-    puts "----------------------------------------------------------------------------"
+    puts "******************************************************"
     puts extract_username
-    puts "----------------------------------------------------------------------------"
+    puts "*******************************************************"
     puts extract_tweets
-    puts "----------------------------------------------------------------------------"
+    puts "*******************************************************"
     puts "Tweets:"
     extract_stats
   end
