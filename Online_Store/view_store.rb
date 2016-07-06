@@ -14,9 +14,7 @@ class View
   end
 
   def tipo_usuario
-    # sleep 1
     puts "Como que tipo de usuario deseas registrarte"
-    # sleep 0.7
     puts "1. Cliente"
     puts "2. Vendedor"
     respuesta = gets.chomp
