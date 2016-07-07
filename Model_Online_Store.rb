@@ -11,5 +11,14 @@ class User
       @direccion = direccion
       @telefono = telefono
   end 
+end 
+
+class Cliente < User
+
+end 
+
+class Vendedor < User
+   attr_accessor :producto :stock
+   
 
 end 
